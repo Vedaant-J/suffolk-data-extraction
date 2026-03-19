@@ -2,7 +2,10 @@
 Script 6: Export full table data as parquet files.
 All tables exported fully (including full SCD history).
 
-Outputs: output/tables/<alias>.parquet
+Each table is written as a directory of parquet part files (~500K rows each)
+to keep memory usage low. Skips tables that already have an output directory.
+
+Outputs: output/tables/<alias>/part_000.parquet, part_001.parquet, ...
 
 Estimated total: ~10-15 GB parquet (55M rows across 10 tables)
 """
@@ -12,50 +15,44 @@ import pyarrow.parquet as pq
 from connection import get_connection, TABLES
 
 OUTPUT_DIR = "output/tables"
+BATCH_SIZE = 500_000  # rows per part file
 
-# Queries per table. SCD tables get filtered, rest get full export.
 EXPORT_QUERIES = {
-    # --- Small tables: full export ---
-    "kumo_transformations_distinct_projects": """
-        SELECT * FROM {table}
-    """,
-    "models_incident": """
-        SELECT * FROM {table}
-    """,
-    "models_schedule_update": """
-        SELECT * FROM {table}
-    """,
-    "models_schedule_baseline": """
-        SELECT * FROM {table}
-    """,
-
-    # --- Medium tables: full export ---
-    "models_observation": """
-        SELECT * FROM {table}
-    """,
-    "kumo_transformations_gr_weekly": """
-        SELECT * FROM {table}
-    """,
-    "models_construction_log": """
-        SELECT * FROM {table}
-    """,
-
-    # --- Large tables: full export (timecard is ~8M rows, manageable) ---
-    "models_timecard": """
-        SELECT * FROM {table}
-    """,
-
-    # --- SCD tables: full history (27M and 15M rows respectively) ---
-    "models_project": """
-        SELECT * FROM {table}
-    """,
-    "models_task_update": """
-        SELECT * FROM {table}
-    """,
+    # --- Small tables ---
+    "kumo_transformations_distinct_projects": "SELECT * FROM {table}",
+    "models_incident": "SELECT * FROM {table}",
+    "models_schedule_update": "SELECT * FROM {table}",
+    "models_schedule_baseline": "SELECT * FROM {table}",
+    # --- Medium tables ---
+    "models_observation": "SELECT * FROM {table}",
+    "kumo_transformations_gr_weekly": "SELECT * FROM {table}",
+    "models_construction_log": "SELECT * FROM {table}",
+    # --- Large tables ---
+    "models_timecard": "SELECT * FROM {table}",
+    "models_project": "SELECT * FROM {table}",
+    "models_task_update": "SELECT * FROM {table}",
 }
 
 
+def rows_to_table(rows, columns):
+    """Convert a list of row tuples to a PyArrow table."""
+    col_arrays = {}
+    for i, col_name in enumerate(columns):
+        col_arrays[col_name] = [row[i] for row in rows]
+    return pa.table(col_arrays)
+
+
 def export_table(cursor, alias, query, output_dir):
+    table_dir = os.path.join(output_dir, alias)
+
+    # Skip if already exported
+    if os.path.exists(table_dir) and any(f.endswith('.parquet') for f in os.listdir(table_dir)):
+        existing = [f for f in os.listdir(table_dir) if f.endswith('.parquet')]
+        print(f"  SKIPPED (already exists: {len(existing)} part files)")
+        return -1
+
+    os.makedirs(table_dir, exist_ok=True)
+
     full_name = TABLES[alias]
     query_formatted = query.format(table=full_name)
 
@@ -63,41 +60,35 @@ def export_table(cursor, alias, query, output_dir):
     cursor.execute(query_formatted)
 
     columns = [desc[0] for desc in cursor.description]
-    print(f"  Fetching rows...", flush=True)
+    print(f"  Streaming rows in batches of {BATCH_SIZE:,}...", flush=True)
 
-    # Fetch in batches to avoid memory issues
-    batch_size = 100_000
-    all_batches = []
     total_rows = 0
+    part_num = 0
+    total_size = 0
 
     while True:
-        rows = cursor.fetchmany(batch_size)
+        rows = cursor.fetchmany(BATCH_SIZE)
         if not rows:
             break
-        total_rows += len(rows)
-        print(f"    fetched {total_rows:,} rows...", end="\r", flush=True)
-        all_batches.extend(rows)
 
-    print(f"  Total: {total_rows:,} rows, {len(columns)} columns")
+        batch_rows = len(rows)
+        total_rows += batch_rows
 
-    if total_rows == 0:
-        print(f"  SKIPPED (no rows)")
-        return 0
+        table = rows_to_table(rows, columns)
+        part_path = os.path.join(table_dir, f"part_{part_num:03d}.parquet")
+        pq.write_table(table, part_path, compression="snappy")
 
-    # Convert to PyArrow table
-    print(f"  Converting to parquet...", flush=True)
-    col_arrays = {}
-    for i, col_name in enumerate(columns):
-        values = [row[i] for row in all_batches]
-        col_arrays[col_name] = values
+        part_size = os.path.getsize(part_path)
+        total_size += part_size
+        part_num += 1
 
-    table = pa.table(col_arrays)
+        print(f"    part_{part_num-1:03d}: {batch_rows:,} rows ({part_size/1e6:.1f} MB)  "
+              f"[total: {total_rows:,} rows, {total_size/1e6:.1f} MB]", flush=True)
 
-    out_path = os.path.join(output_dir, f"{alias}.parquet")
-    pq.write_table(table, out_path, compression="snappy")
+        # Free memory
+        del rows, table
 
-    file_size = os.path.getsize(out_path)
-    print(f"  Saved: {out_path} ({file_size / 1e6:.1f} MB)")
+    print(f"  Done: {total_rows:,} rows, {part_num} parts, {total_size/1e6:.1f} MB")
     return total_rows
 
 
@@ -114,7 +105,7 @@ def main():
         print(f"{'='*60}")
         try:
             n_rows = export_table(cursor, alias, query, OUTPUT_DIR)
-            summary[alias] = {"rows": n_rows, "status": "ok"}
+            summary[alias] = {"rows": n_rows, "status": "ok" if n_rows >= 0 else "skipped"}
         except Exception as e:
             print(f"  ERROR: {e}")
             summary[alias] = {"rows": 0, "status": f"error: {e}"}
@@ -128,11 +119,15 @@ def main():
     total_rows = 0
     total_size = 0
     for alias, info in summary.items():
-        path = os.path.join(OUTPUT_DIR, f"{alias}.parquet")
-        size = os.path.getsize(path) if os.path.exists(path) else 0
-        total_rows += info["rows"]
+        table_dir = os.path.join(OUTPUT_DIR, alias)
+        size = 0
+        if os.path.isdir(table_dir):
+            size = sum(os.path.getsize(os.path.join(table_dir, f))
+                       for f in os.listdir(table_dir) if f.endswith('.parquet'))
+        rows = info["rows"] if info["rows"] > 0 else 0
+        total_rows += rows
         total_size += size
-        print(f"  {alias:50s} {info['rows']:>12,} rows  {size/1e6:>8.1f} MB  {info['status']}")
+        print(f"  {alias:50s} {rows:>12,} rows  {size/1e6:>8.1f} MB  {info['status']}")
     print(f"  {'TOTAL':50s} {total_rows:>12,} rows  {total_size/1e6:>8.1f} MB")
 
 
