@@ -50,16 +50,15 @@ def get_connection():
 
 
 # Table name mapping: alias -> full Databricks table path
-CATALOG = "kumoai"
 TABLES = {
-    "models_project": f"{CATALOG}.models__kumo__project",
-    "models_timecard": f"{CATALOG}.models__kumo__timecard",
-    "models_construction_log": f"{CATALOG}.models__kumo__construction_log",
-    "models_observation": f"{CATALOG}.models__kumo__observation",
-    "models_task_update": f"{CATALOG}.models__kumo__task_update",
-    "kumo_transformations_distinct_projects": f"{CATALOG}.kumo_transformations__kumo__distinct_projects",
-    "kumo_transformations_gr_weekly": f"{CATALOG}.kumo_transformations__kumo__gr_weekly",
-    "models_schedule_update": f"{CATALOG}.models__kumo__schedule_update",
-    "models_schedule_baseline": f"{CATALOG}.models__kumo__schedule_baseline",
-    "models_incident": f"{CATALOG}.models__kumo__incident",
+    "models_project": "kumoai.models.project",
+    "models_timecard": "kumoai.models.timecard",
+    "models_construction_log": "kumoai.models.construction_log",
+    "models_observation": "kumoai.models.observation",
+    "models_task_update": "kumoai.models.task_update",
+    "kumo_transformations_distinct_projects": "kumoai.kumo_transformations.distinct_projects",
+    "kumo_transformations_gr_weekly": "kumoai.kumo_transformations.gr_weekly",
+    "models_schedule_update": "kumoai.models.schedule_update",
+    "models_schedule_baseline": "kumoai.models.schedule_baseline",
+    "models_incident": "kumoai.models.incident",
 }
