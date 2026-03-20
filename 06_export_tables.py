@@ -35,11 +35,25 @@ EXPORT_QUERIES = {
 
 
 def rows_to_table(rows, columns):
-    """Convert a list of row tuples to a PyArrow table."""
-    col_arrays = {}
+    """Convert a list of row tuples to a PyArrow table.
+    Handles datetime.date and datetime.datetime objects that PyArrow
+    can't auto-infer by converting them to pa.date32 / pa.timestamp arrays.
+    """
+    import datetime
+
+    col_arrays = []
     for i, col_name in enumerate(columns):
-        col_arrays[col_name] = [row[i] for row in rows]
-    return pa.table(col_arrays)
+        values = [row[i] for row in rows]
+        # Check first non-None value to detect type
+        sample = next((v for v in values if v is not None), None)
+        if isinstance(sample, datetime.date) and not isinstance(sample, datetime.datetime):
+            arr = pa.array(values, type=pa.date32())
+        elif isinstance(sample, datetime.datetime):
+            arr = pa.array(values, type=pa.timestamp("us"))
+        else:
+            arr = pa.array(values)
+        col_arrays.append((col_name, arr))
+    return pa.table(dict(col_arrays))
 
 
 def export_table(cursor, alias, query, output_dir):
