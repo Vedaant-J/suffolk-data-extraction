@@ -1,0 +1,3782 @@
+{
+  "name": "suffolk_incident_prediction",
+  "pql": "PREDICT COUNT(models_incident.*, 0, 7, days) > 0 FOR EACH kumo_transformations_distinct_projects.ids_project_number WHERE COUNT(models_timecard.*, -7, 0, days) > 0",
+  "s3_data_path": "s3://kumo-unit-test/diskgraph-datagenerator/suffolk_incident_prediction/",
+  "diskgraph_config": {
+    "dataset_name": "suffolk_incident_prediction",
+    "tables": [
+      {
+        "name": "kumo_transformations_distinct_projects",
+        "columns": [
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          }
+        ],
+        "primary_key": "ids_project_number",
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "kumo_transformations_distinct_projects/part_000.parquet"
+          ]
+        }
+      },
+      {
+        "name": "models_project",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "multicategorical"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "dt_fact",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "is_latest",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "ids_wip_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "ids_master_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "str_project_name",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_address",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "is_ccip",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "str_city",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "is_coe",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_confidential",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_contract_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_country",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "str_customer",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "cat_glpd_method",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "amt_glpd_rate",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "is_joint_venture",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "amt_lit_rate",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "cat_market_sector",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_office",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_owner_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_region",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_sbu",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_main_asset_class",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_shelf",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_legacy",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_leed_cert",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_state",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_subguard",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_takeover",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_zip_code",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "val_lat",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "val_long",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "str_architect_name",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "n_unit",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_area_residential",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_area_retail",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_area_other",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_floors_below_grade",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_floors_above_grade",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_area_parking",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_area_gross",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "cat_insurance_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_insurance_wc",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_insurance_gl",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_division",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_expenditure_first",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_expenditure_latest",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "amt_contract",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "dt_construction_start",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_construction_end",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_financial_status",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_pnl_status",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_accounting_region",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_accounting_sector",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_accounting_sbu",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_accounting_start",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_accounting_end",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_phase",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "str_general_superintendent",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_project_executive",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_regional_coo_evp",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_svp_vp",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_general_manager",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_president",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_project_executive_vp",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_regional_coo",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "amt_cost_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_cost_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_liberty_cost_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_liberty_cost_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_incidents_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_incidents_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_recordables_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_recordables_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_observations_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_observations_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_punch_items_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_punch_items_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_punch_items_open_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_punch_items_open_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_rfis_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_rfis_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_rfi_ce_links_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_rfi_ce_links_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_percent_complete_time_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_timecard_hours_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_timecard_hours_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_cash_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_gc_budget_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_gr_budget_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_contingency_budget_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_fee_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_change_event_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "n_change_event_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_change_order_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_change_order_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_worker_hours_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_worker_hours_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_workers_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_workers_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_liberty_hours_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_liberty_hours_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_kor_departures_daily",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_kor_departures_total",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_gc_percent_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_gr_percent_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_contingency_percent_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_trir_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_month_ending_over_under",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "cat_stage_construction",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "val_percent_complete_financial_daily",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          }
+        ],
+        "primary_key": null,
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_project/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_fact",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_project",
+                "column": "dt_fact",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_project",
+                "column": "dt_fact",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "models_timecard",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "multicategorical"
+          },
+          {
+            "name": "id_person",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "id"
+          },
+          {
+            "name": "dt_item_date",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "project_key",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "id"
+          },
+          {
+            "name": "cat_task_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_expenditure_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_job_title",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "amt_expenditure_hours",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_timecard_hours",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "ids_person",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          }
+        ],
+        "primary_key": null,
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_timecard/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_item_date",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_timecard",
+                "column": "dt_item_date",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_timecard",
+                "column": "dt_item_date",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "models_construction_log",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "multicategorical"
+          },
+          {
+            "name": "cat_data_source",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "id_construction_report_logs",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "dt_log_date",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "ids_vendor",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "ids_vendor_site",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "cat_trade",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "n_workers_foreman",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_workers_journeyman",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_workers_apprentice",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_workers_other",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_workers_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_foreman",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_journeyman",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_apprentice",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_other",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_total",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_minority",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_women",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_local_city",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_local_county",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_veteran",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_hours_first_year",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          }
+        ],
+        "primary_key": null,
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_construction_log/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_log_date",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_construction_log",
+                "column": "dt_log_date",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_construction_log",
+                "column": "dt_log_date",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "models_observation",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "multicategorical"
+          },
+          {
+            "name": "ids_observation",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "project_key",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "id"
+          },
+          {
+            "name": "id_person_created_by",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "id"
+          },
+          {
+            "name": "id_person_assigned_to",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "id"
+          },
+          {
+            "name": "id_person_closed_by",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "id"
+          },
+          {
+            "name": "amt_risk",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "cat_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_severity",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_frequency",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_positive",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_great_catch",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_observation_created",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_observation_due",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_observation_closed",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_hazard_category",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_identification_method",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "ids_vendor",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "str_notes",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_required_action",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_action_taken",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_status",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "amt_days_to_close_actual",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_days_to_close_expected",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_days_until_due",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "is_overdue",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "str_observation_url",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "cat_source",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          }
+        ],
+        "primary_key": null,
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_observation/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_observation_created",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_observation",
+                "column": "dt_observation_created",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_observation",
+                "column": "dt_observation_created",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "models_task_update",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "multicategorical"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "cat_task_code",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "str_task_name",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "dt_task_start",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_task_start_source",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_task_end",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_task_end_source",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "amt_float",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_duration_target",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "amt_duration_remaining",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "dt_effective_from",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_effective_to",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "is_active_record",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_sow",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_responsibility",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_qaqc_inspection",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_lob",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_master_format",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_building_level",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_exterior_drop",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_pull_plan_target",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_vendor",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_project_class",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_in_current_schedule",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          }
+        ],
+        "primary_key": null,
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_task_update/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_effective_from",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_task_update",
+                "column": "dt_effective_from",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_task_update",
+                "column": "dt_effective_from",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "kumo_transformations_gr_weekly",
+        "columns": [
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "dt_date",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_cost_code",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_cost_code_description",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_hours_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "amt_hours",
+            "source_dtype": "Float64",
+            "ingested_dtype": "float64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "cat_certified_class",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_union_class",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_union_class_descriptions",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_division",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          }
+        ],
+        "primary_key": null,
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "kumo_transformations_gr_weekly/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_date",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "kumo_transformations_gr_weekly",
+                "column": "dt_date",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "kumo_transformations_gr_weekly",
+                "column": "dt_date",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "models_schedule_update",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "multicategorical"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "cat_schedule_code",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "dt_snapshot",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_ntp",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_tco",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_source_tco_date",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_next_tco",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_source_next_tco_date",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_co",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "n_recent_snapshot",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_recent_schedule",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "dt_effective_from",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_effective_to",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "is_active_record",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_first_record_for_new_snapshot",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          }
+        ],
+        "primary_key": "cat_schedule_code",
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_schedule_update/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_snapshot",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_schedule_update",
+                "column": "dt_snapshot",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_schedule_update",
+                "column": "dt_snapshot",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "models_schedule_baseline",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "multicategorical"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "cat_schedule_code",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "dt_snapshot",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_ntp",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_tco",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_source_tco_date",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_next_tco",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_source_next_tco_date",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_co",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "n_recent_snapshot",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "n_recent_schedule",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "numerical"
+          },
+          {
+            "name": "dt_effective_from",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_effective_to",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "is_active_record",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_first_record_for_new_snapshot",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          }
+        ],
+        "primary_key": "cat_schedule_code",
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_schedule_baseline/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_effective_from",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_schedule_baseline",
+                "column": "dt_effective_from",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_schedule_baseline",
+                "column": "dt_effective_from",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "models_incident",
+        "columns": [
+          {
+            "name": "is_scd",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "pkey_columns",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "ids_incident_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "ids_project_number",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "dt_incident_created",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "id_person_created",
+            "source_dtype": "Int64",
+            "ingested_dtype": "int64",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "ids_vendor",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "id"
+          },
+          {
+            "name": "cat_incident_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_osha_status",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "dt_incident_reported",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "dt_incident_occurred",
+            "source_dtype": "Date32",
+            "ingested_dtype": "timestamp",
+            "semantic_type": "timestamp"
+          },
+          {
+            "name": "cat_manner_of_injury",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "str_nature_of_injury",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "cat_source_of_injury",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_body_part",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "str_incident_brief_summary",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "str_incident_description",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "text"
+          },
+          {
+            "name": "cat_incident_calc_type",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_trir",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "is_ltir",
+            "source_dtype": "Boolean",
+            "ingested_dtype": "bool",
+            "semantic_type": "categorical"
+          },
+          {
+            "name": "cat_incident_source_system",
+            "source_dtype": "Utf8",
+            "ingested_dtype": "string",
+            "semantic_type": "categorical"
+          }
+        ],
+        "primary_key": null,
+        "weight": null,
+        "edge_table": null,
+        "rowpack": null,
+        "source": {
+          "type": "parquet",
+          "paths": [
+            "models_incident/part_000.parquet"
+          ]
+        },
+        "create_time": "dt_incident_occurred",
+        "fkeys": [
+          {
+            "src_column": "ids_project_number",
+            "dst_table": "kumo_transformations_distinct_projects",
+            "forward": {
+              "time": {
+                "table": "models_incident",
+                "column": "dt_incident_occurred",
+                "unit": "days"
+              }
+            },
+            "reverse": {
+              "time": {
+                "table": "models_incident",
+                "column": "dt_incident_occurred",
+                "unit": "days"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "rowpack": null,
+    "num_shards": 4
+  },
+  "kumo_graph_config": {
+    "name": "suffolk_incident_prediction",
+    "data_source_dict": {
+      "local": {
+        "source_type": "local",
+        "base_path": ""
+      }
+    },
+    "tables": [
+      {
+        "table_name": "kumo_transformations_distinct_projects",
+        "data_source": "local",
+        "source_name": "kumo_transformations_distinct_projects",
+        "data_version": "v1",
+        "pkey": {
+          "name": "ids_project_number",
+          "dtype": "string",
+          "stype": "ID",
+          "drop_duplicates": false
+        },
+        "fkeys": [],
+        "cols": [],
+        "time_col": null,
+        "end_time_col": null
+      },
+      {
+        "table_name": "models_project",
+        "data_source": "local",
+        "source_name": "models_project",
+        "data_version": "v1",
+        "pkey": null,
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "multicategorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_latest",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_wip_project_number",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_master_project_number",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_project_name",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_address",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_ccip",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_city",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_coe",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_confidential",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_contract_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_country",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_customer",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_glpd_method",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_glpd_rate",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_joint_venture",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_lit_rate",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_market_sector",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_office",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_owner_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_region",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_sbu",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_main_asset_class",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_shelf",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_legacy",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_leed_cert",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_state",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_subguard",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_takeover",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_zip_code",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "val_lat",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "val_long",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_architect_name",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_unit",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_area_residential",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_area_retail",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_area_other",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_floors_below_grade",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_floors_above_grade",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_area_parking",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_area_gross",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_insurance_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_insurance_wc",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_insurance_gl",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_division",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_expenditure_first",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_expenditure_latest",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_contract",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_construction_start",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_construction_end",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_financial_status",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_pnl_status",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_accounting_region",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_accounting_sector",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_accounting_sbu",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_accounting_start",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_accounting_end",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_phase",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_general_superintendent",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_project_executive",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_regional_coo_evp",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_svp_vp",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_general_manager",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_president",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_project_executive_vp",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_regional_coo",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_cost_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_cost_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_liberty_cost_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_liberty_cost_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_incidents_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_incidents_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_recordables_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_recordables_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_observations_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_observations_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_punch_items_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_punch_items_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_punch_items_open_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_punch_items_open_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_rfis_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_rfis_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_rfi_ce_links_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_rfi_ce_links_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_percent_complete_time_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_timecard_hours_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_timecard_hours_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_cash_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_gc_budget_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_gr_budget_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_contingency_budget_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_fee_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_change_event_daily",
+            "dtype": "int",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_change_event_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_change_order_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_change_order_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_worker_hours_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_worker_hours_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_workers_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_workers_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_liberty_hours_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_liberty_hours_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_kor_departures_daily",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_kor_departures_total",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_gc_percent_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_gr_percent_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_contingency_percent_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_trir_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_month_ending_over_under",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_stage_construction",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "val_percent_complete_financial_daily",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_fact",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": null
+      },
+      {
+        "table_name": "models_timecard",
+        "data_source": "local",
+        "source_name": "models_timecard",
+        "data_version": "v1",
+        "pkey": null,
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "multicategorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "id_person",
+            "dtype": "int",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "project_key",
+            "dtype": "int",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_task_number",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_expenditure_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_job_title",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_expenditure_hours",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_timecard_hours",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_person",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_item_date",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": null
+      },
+      {
+        "table_name": "models_construction_log",
+        "data_source": "local",
+        "source_name": "models_construction_log",
+        "data_version": "v1",
+        "pkey": null,
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "multicategorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_data_source",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "id_construction_report_logs",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_vendor",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_vendor_site",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_trade",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_workers_foreman",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_workers_journeyman",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_workers_apprentice",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_workers_other",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_workers_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_foreman",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_journeyman",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_apprentice",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_other",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_total",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_minority",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_women",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_local_city",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_local_county",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_veteran",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours_first_year",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_log_date",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": null
+      },
+      {
+        "table_name": "models_observation",
+        "data_source": "local",
+        "source_name": "models_observation",
+        "data_version": "v1",
+        "pkey": null,
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "multicategorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_observation",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "project_key",
+            "dtype": "int",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "id_person_created_by",
+            "dtype": "int",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "id_person_assigned_to",
+            "dtype": "int",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "id_person_closed_by",
+            "dtype": "int",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_risk",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_severity",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_frequency",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_positive",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_great_catch",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_observation_due",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_observation_closed",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_hazard_category",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_identification_method",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_vendor",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_notes",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_required_action",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_action_taken",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_status",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_days_to_close_actual",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_days_to_close_expected",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_days_until_due",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_overdue",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_observation_url",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_source",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_observation_created",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": null
+      },
+      {
+        "table_name": "models_task_update",
+        "data_source": "local",
+        "source_name": "models_task_update",
+        "data_version": "v1",
+        "pkey": null,
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "multicategorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_task_code",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_task_name",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_task_start",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_task_start_source",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_task_end",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_task_end_source",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_float",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_duration_target",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_duration_remaining",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_active_record",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_sow",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_responsibility",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_qaqc_inspection",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_lob",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_master_format",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_building_level",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_exterior_drop",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_pull_plan_target",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_vendor",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_project_class",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_in_current_schedule",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_effective_from",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": {
+          "name": "dt_effective_to",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        }
+      },
+      {
+        "table_name": "kumo_transformations_gr_weekly",
+        "data_source": "local",
+        "source_name": "kumo_transformations_gr_weekly",
+        "data_version": "v1",
+        "pkey": null,
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "cat_cost_code",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_cost_code_description",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_hours_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "amt_hours",
+            "dtype": "float64",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_certified_class",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_union_class",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_union_class_descriptions",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_division",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_date",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": null
+      },
+      {
+        "table_name": "models_schedule_update",
+        "data_source": "local",
+        "source_name": "models_schedule_update",
+        "data_version": "v1",
+        "pkey": {
+          "name": "cat_schedule_code",
+          "dtype": "string",
+          "stype": "ID",
+          "drop_duplicates": false
+        },
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "multicategorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_ntp",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_tco",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_source_tco_date",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_next_tco",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_source_next_tco_date",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_co",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_recent_snapshot",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_recent_schedule",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_effective_from",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_effective_to",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_active_record",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_first_record_for_new_snapshot",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_snapshot",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": null
+      },
+      {
+        "table_name": "models_schedule_baseline",
+        "data_source": "local",
+        "source_name": "models_schedule_baseline",
+        "data_version": "v1",
+        "pkey": {
+          "name": "cat_schedule_code",
+          "dtype": "string",
+          "stype": "ID",
+          "drop_duplicates": false
+        },
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "multicategorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_snapshot",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_ntp",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_tco",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_source_tco_date",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_next_tco",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_source_next_tco_date",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_co",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_recent_snapshot",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "n_recent_schedule",
+            "dtype": "int",
+            "stype": "numerical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_active_record",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_first_record_for_new_snapshot",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_effective_from",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": {
+          "name": "dt_effective_to",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        }
+      },
+      {
+        "table_name": "models_incident",
+        "data_source": "local",
+        "source_name": "models_incident",
+        "data_version": "v1",
+        "pkey": null,
+        "fkeys": [
+          {
+            "name": "ids_project_number",
+            "dtype": "string",
+            "stype": null,
+            "dst_table": "kumo_transformations_distinct_projects",
+            "dst_key": "",
+            "dst_data_source": null
+          }
+        ],
+        "cols": [
+          {
+            "name": "is_scd",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "pkey_columns",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_incident_number",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_incident_created",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "id_person_created",
+            "dtype": "int",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "ids_vendor",
+            "dtype": "string",
+            "stype": "ID",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_incident_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_osha_status",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "dt_incident_reported",
+            "dtype": "date",
+            "stype": "timestamp",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_manner_of_injury",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_nature_of_injury",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_source_of_injury",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_body_part",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_incident_brief_summary",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "str_incident_description",
+            "dtype": "string",
+            "stype": "text",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_incident_calc_type",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_trir",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "is_ltir",
+            "dtype": "bool",
+            "stype": "categorical",
+            "timestamp_unit": null
+          },
+          {
+            "name": "cat_incident_source_system",
+            "dtype": "string",
+            "stype": "categorical",
+            "timestamp_unit": null
+          }
+        ],
+        "time_col": {
+          "name": "dt_incident_occurred",
+          "dtype": "date",
+          "stype": "timestamp",
+          "timestamp_unit": null,
+          "is_pseudo": false
+        },
+        "end_time_col": null
+      }
+    ]
+  },
+  "expected_results": {}
+}
