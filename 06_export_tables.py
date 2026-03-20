@@ -38,20 +38,30 @@ def rows_to_table(rows, columns):
     """Convert a list of row tuples to a PyArrow table.
     Handles datetime.date and datetime.datetime objects that PyArrow
     can't auto-infer by converting them to pa.date32 / pa.timestamp arrays.
+    Also handles Decimal objects by converting to float.
     """
     import datetime
+    from decimal import Decimal
 
     col_arrays = []
     for i, col_name in enumerate(columns):
         values = [row[i] for row in rows]
         # Check first non-None value to detect type
         sample = next((v for v in values if v is not None), None)
-        if isinstance(sample, datetime.date) and not isinstance(sample, datetime.datetime):
-            arr = pa.array(values, type=pa.date32())
-        elif isinstance(sample, datetime.datetime):
-            arr = pa.array(values, type=pa.timestamp("us"))
-        else:
-            arr = pa.array(values)
+        try:
+            if isinstance(sample, datetime.datetime):
+                arr = pa.array(values, type=pa.timestamp("us"))
+            elif isinstance(sample, datetime.date):
+                arr = pa.array(values, type=pa.date32())
+            elif isinstance(sample, Decimal):
+                arr = pa.array([float(v) if v is not None else None for v in values])
+            elif isinstance(sample, bytes):
+                arr = pa.array([v.decode("utf-8", errors="replace") if isinstance(v, bytes) else v for v in values])
+            else:
+                arr = pa.array(values)
+        except Exception:
+            # Last resort: convert everything to string
+            arr = pa.array([str(v) if v is not None else None for v in values])
         col_arrays.append((col_name, arr))
     return pa.table(dict(col_arrays))
 
