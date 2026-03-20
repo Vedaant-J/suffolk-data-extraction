@@ -107,13 +107,21 @@ def export_table(cursor, alias, query, output_dir):
 
 
 def main():
+    import sys
+
     os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    # Filter to specific tables if passed as args
+    # Usage: python 06_export_tables.py models_schedule_update models_schedule_baseline
+    only = set(sys.argv[1:]) if len(sys.argv) > 1 else None
 
     conn = get_connection()
     cursor = conn.cursor()
 
     summary = {}
     for alias, query in EXPORT_QUERIES.items():
+        if only and alias not in only:
+            continue
         print(f"\n{'='*60}")
         print(f"Exporting: {alias}")
         print(f"{'='*60}")
